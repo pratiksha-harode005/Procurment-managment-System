@@ -2,9 +2,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/api/:match*",
+      "destination": "https://backend-brown-three-62.vercel.app/api/:match*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
 }
-

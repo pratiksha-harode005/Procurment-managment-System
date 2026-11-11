@@ -2,10 +2,11 @@ import dj_database_url
 from decouple import config
 from .base import *
 
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 ALLOWED_HOSTS = ['*']
 
-USE_SQLITE = config('USE_SQLITE', default=True, cast=bool)
+db_url = config('DATABASE_URL', default=config('Database_URL', default=None))
+USE_SQLITE = config('USE_SQLITE', default=(not bool(db_url)), cast=bool)
 
 if USE_SQLITE or not db_url:
     DATABASES = {
@@ -14,7 +15,7 @@ if USE_SQLITE or not db_url:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-elif db_url:
+else:
     DATABASES = {
         'default': dj_database_url.parse(
             db_url,
@@ -23,8 +24,6 @@ elif db_url:
             ssl_require=True
         )
     }
-else:
-    raise ValueError("Database configuration missing.")
 
 # Fast password verification for local dev authentication
 PASSWORD_HASHERS = [
