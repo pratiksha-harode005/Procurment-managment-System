@@ -1,6 +1,10 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse, AxiosError, AxiosRequestConfig } from 'axios'
 
-const API_BASE_URL = `http://${window.location.hostname}:8000/api`
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+  ? (import.meta.env.VITE_API_BASE_URL.endsWith('/api')
+      ? import.meta.env.VITE_API_BASE_URL
+      : `${import.meta.env.VITE_API_BASE_URL}/api`)
+  : (import.meta.env.PROD ? '/api' : `http://${window.location.hostname}:8000/api`)
 
 const rawAxios = axios.create({
   baseURL: API_BASE_URL,
