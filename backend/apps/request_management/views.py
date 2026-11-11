@@ -200,13 +200,24 @@ def apply_request_type_filter(queryset, request):
     return queryset.order_by('-created_at', '-id')
 
 
-def get_base_purchase_request_queryset():
+def get_base_purchase_request_queryset(*, purchase_orders_queryset=None, rfqs_queryset=None):
     """
     Standard highly-optimized QuerySet for PurchaseRequest.
     Pre-selects all ForeignKey relations and prefetches approval history, steps, payments,
     rfqs, purchase orders, goods receipts, and justifications required by PurchaseRequestSerializer
     to eliminate N+1 queries.
     """
+    if rfqs_queryset is None:
+        rfqs_queryset = RFQ.objects.prefetch_related(
+            'quotations',
+            'invited_vendors'
+        )
+    if purchase_orders_queryset is None:
+        purchase_orders_queryset = PurchaseOrder.objects.select_related('vendor').prefetch_related(
+            'goods_receipts',
+            'invoices'
+        )
+
     return PurchaseRequest.objects.select_related(
         'created_by',
         'created_by__department',
@@ -239,20 +250,8 @@ def get_base_purchase_request_queryset():
         'approval_history__performed_by',
         'approval_history__performed_by__department',
         'payments',
-        Prefetch(
-            'rfqs',
-            queryset=RFQ.objects.prefetch_related(
-                'quotations',
-                'invited_vendors'
-            )
-        ),
-        Prefetch(
-            'purchase_orders',
-            queryset=PurchaseOrder.objects.select_related('vendor').prefetch_related(
-                'goods_receipts',
-                'invoices'
-            )
-        ),
+        Prefetch('rfqs', queryset=rfqs_queryset),
+        Prefetch('purchase_orders', queryset=purchase_orders_queryset),
         Prefetch(
             'all_descendants',
             queryset=PurchaseRequest.objects.only(
@@ -1349,36 +1348,30 @@ class TeamLeadRequestViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        qs = get_base_purchase_request_queryset().prefetch_related(
-            Prefetch(
-                'purchase_orders',
-                queryset=PurchaseOrder.objects.only(
-                    'id', 'purchase_request_id', 'po_id', 'status', 'updated_at'
-                ).prefetch_related(
-                    Prefetch(
-                        'goods_receipts',
-                        queryset=GoodsReceipt.objects.only(
-                            'id', 'purchase_order_id', 'status', 'verified_at', 'verified_by_name', 'updated_at'
-                        )
-                    ),
-                    Prefetch(
-                        'invoices',
-                        queryset=Invoice.objects.only(
-                            'id', 'purchase_order_id', 'status', 'is_manager_verified',
-                            'verified_at', 'verified_by_name', 'updated_at'
-                        )
-                    ),
+        qs = get_base_purchase_request_queryset(
+            purchase_orders_queryset=PurchaseOrder.objects.only(
+                'id', 'purchase_request_id', 'po_id', 'status', 'updated_at'
+            ).prefetch_related(
+                Prefetch(
+                    'goods_receipts',
+                    queryset=GoodsReceipt.objects.only(
+                        'id', 'purchase_order_id', 'status', 'verified_at', 'verified_by_name', 'updated_at'
+                    )
+                ),
+                Prefetch(
+                    'invoices',
+                    queryset=Invoice.objects.only(
+                        'id', 'purchase_order_id', 'status', 'is_manager_verified',
+                        'verified_at', 'verified_by_name', 'updated_at'
+                    )
+                ),
+            ),
+            rfqs_queryset=RFQ.objects.only('id', 'purchase_request_id').prefetch_related(
+                Prefetch(
+                    'quotations',
+                    queryset=Quotation.objects.only('id', 'rfq_id', 'status', 'created_at', 'updated_at')
                 )
             ),
-            Prefetch(
-                'rfqs',
-                queryset=RFQ.objects.only('id', 'purchase_request_id').prefetch_related(
-                    Prefetch(
-                        'quotations',
-                        queryset=Quotation.objects.only('id', 'rfq_id', 'status', 'created_at', 'updated_at')
-                    )
-                )
-            )
         )
         scope = self.request.query_params.get('scope')
         my_only = self.request.query_params.get('my_only') == 'true'

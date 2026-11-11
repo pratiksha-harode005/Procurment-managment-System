@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KSS Procurement OS - Project Report</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    background-color: #cbd5e1;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    height: 297mm;
+    margin: 0 auto;
+    background: #ffffff;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* PAGE 1: HERO / COVER PAGE (DARK THEME) */
+  .page-cover {
+    background: radial-gradient(circle at 50% 15%, #0f2744 0%, #091728 55%, #040d18 100%);
+    color: #ffffff;
+    padding: 55px 50px 45px 50px;
+    justify-content: space-between;
+  }
+
+  .cover-top-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(14, 165, 233, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    padding: 7px 18px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #38bdf8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .cover-title-group {
+    margin-top: 36px;
+  }
+
+  .cover-title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.15;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-subtitle {
+    margin-top: 18px;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: #94a3b8;
+    max-width: 680px;
+    font-weight: 400;
+  }
+
+  .cover-badges-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .tech-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(51, 65, 85, 0.85);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    color: #e2e8f0;
+    font-weight: 500;
+  }
+
+  .cover-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 55px;
+    margin-bottom: 35px;
+  }
+
+  .cover-stat-card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    border-radius: 12px;
+    padding: 24px 10px;
+    text-align: center;
+  }
+
+  .cover-stat-val {
+    font-size: 34px;
+    font-weight: 800;
+    color: #38bdf8;
+    line-height: 1;
+    letter-spacing: -0.5px;
+  }
+
+  .cover-stat-lbl {
+    margin-top: 8px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+  }
+
+  .cover-meta-box {
+    border: 1px solid rgba(56, 189, 248, 0.25);
+    border-radius: 12px;
+    background: rgba(11, 27, 48, 0.45);
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 32px;
+  }
+
+  .meta-item-lbl {
+    font-size: 10px;
+    font-weight: 700;
+    color: #38bdf8;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .meta-item-val {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #f1f5f9;
+    line-height: 1.45;
+  }
+
+  /* WHITE INNER PAGES (2 to 6) */
+  .page-inner {
+    padding: 42px 48px;
+    background: #ffffff;
+    color: #334155;
+  }
+
+  .inner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1.5px solid #e2e8f0;
+    padding-bottom: 10px;
+    margin-bottom: 24px;
+  }
+
+  .header-left {
+    font-size: 10.5px;
+    font-weight: 800;
+    color: #475569;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0284c7;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-top: 18px;
+    margin-bottom: 12px;
+  }
+
+  .section-bar {
+    width: 4px;
+    height: 18px;
+    background-color: #0284c7;
+    border-radius: 2px;
+  }
+
+  p.section-para {
+    font-size: 11.5px;
+    line-height: 1.6;
+    color: #334155;
+    margin-bottom: 14px;
+  }
+
+  /* PAGE 2 STAT CARDS */
+  .p2-stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin: 16px 0 20px 0;
+  }
+
+  .p2-stat-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-top: 3px solid #0284c7;
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .p2-stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+  }
+
+  .p2-stat-lbl {
+    margin-top: 6px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #64748b;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+
+  /* TABLES */
+  table.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    margin-bottom: 16px;
+    font-size: 11px;
+  }
+
+  table.report-table th {
+    background-color: #0c2340;
+    color: #ffffff;
+    font-weight: 700;
+    text-align: left;
+    padding: 8px 10px;
+    font-size: 11px;
+    border-top: 1px solid #0c2340;
+    border-bottom: 1px solid #0c2340;
+  }
+
+  table.report-table td {
+    padding: 7.5px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+    line-height: 1.45;
+    color: #334155;
+  }
+
+  table.report-table tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+
+  table.report-table td.col-bold {
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  /* CALLOUT BOXES */
+  .callout-box {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 11px;
+    line-height: 1.55;
+    color: #166534;
+    margin-top: 16px;
+  }
+
+  .callout-box-blue {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-left: 4px solid #0284c7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 11.5px;
+    line-height: 1.55;
+    color: #0369a1;
+    margin-bottom: 18px;
+  }
+
+  /* ASCII DIAGRAM CONTAINER */
+  .ascii-container {
+    background: #091728;
+    color: #7dd3fc;
+    border-radius: 8px;
+    padding: 14px 12px;
+    font-family: 'JetBrains Mono', Consolas, Menlo, monospace;
+    font-size: 9px;
+    line-height: 1.25;
+    white-space: pre;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid #1e293b;
+  }
+
+  /* STEPPER BOXES */
+  .stepper-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .stepper-card {
+    border: 1.5px solid #0284c7;
+    background: #f0f9ff;
+    border-radius: 8px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .stepper-circle {
+    width: 24px;
+    height: 24px;
+    background: #0284c7;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 11.5px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .stepper-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+
+  .stepper-desc {
+    font-size: 10px;
+    color: #475569;
+    line-height: 1.35;
+  }
+
+  /* SECURITY BULLET LIST */
+  .sec-list {
+    list-style: none;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sec-list li {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #334155;
+    position: relative;
+    padding-left: 14px;
+  }
+
+  .sec-list li::before {
+    content: "•";
+    position: absolute;
+    left: 2px;
+    color: #0284c7;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  /* SIGNATURE FOOTER */
+  .sign-footer {
+    margin-top: auto;
+    padding-top: 30px;
+  }
+
+  .sign-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 18px;
+    border-top: 1px dashed #cbd5e1;
+    padding-top: 16px;
+  }
+
+  .sign-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .sign-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .sign-sub {
+    font-size: 10.5px;
+    color: #475569;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==========================================
+     PAGE 1: COVER PAGE (DARK THEME)
+=========================================== -->
+<div class="page page-cover">
+  <div>
+    <div class="cover-top-pill">
+      🏢 KSS ENTERPRISE SYSTEMS • SUPPLY CHAIN & PROCUREMENT DIVISION
+    </div>
+
+    <div class="cover-title-group">
+      <h1 class="cover-title">KSS Procurement<br/>Operating System</h1>
+      <p class="cover-subtitle">
+        A Next-Generation Enterprise Procurement Operating System Featuring 5-Tier RBAC, Automated Approval Hierarchies, Real-Time Multi-Stage Stepper Tracking & Comprehensive Three-Way Matching Governance.
+      </p>
+    </div>
+
+    <div class="cover-badges-row">
+      <div class="tech-pill">⚛️ React 18 & Vite 5</div>
+      <div class="tech-pill">🐍 Python & Django REST Framework</div>
+      <div class="tech-pill">🗄️ Relational PostgreSQL / SQLite</div>
+      <div class="tech-pill">🔒 IDOR & RBAC Security</div>
+      <div class="tech-pill">🎨 Tailwind CSS & Lucide Icons</div>
+    </div>
+  </div>
+
+  <div class="cover-stats-grid">
+    <div class="cover-stat-card">
+      <div class="cover-stat-val">8+</div>
+      <div class="cover-stat-lbl">PROCUREMENT MODULES</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="cover-stat-val">5 Roles</div>
+      <div class="cover-stat-lbl">ACCESS CONTROL</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="cover-stat-val">100%</div>
+      <div class="cover-stat-lbl">AUDIT & COMPLIANCE</div>
+    </div>
+    <div class="cover-stat-card">
+      <div class="cover-stat-val">&lt;24h</div>
+      <div class="cover-stat-lbl">APPROVAL TURNAROUND</div>
+    </div>
+  </div>
+
+  <div class="cover-meta-box">
+    <div>
+      <div class="meta-item-lbl">PROJECT TITLE</div>
+      <div class="meta-item-val">KSS Procurement OS (Enterprise Procurement System)</div>
+    </div>
+    <div>
+      <div class="meta-item-lbl">TARGET STAKEHOLDERS</div>
+      <div class="meta-item-val">Team Leads, Department Managers, Finance Controllers, IT Admins, Vendors</div>
+    </div>
+    <div>
+      <div class="meta-item-lbl">DOMAIN</div>
+      <div class="meta-item-val">Enterprise Supply Chain, B2B Sourcing, Financial Governance & ERP Automation</div>
+    </div>
+    <div>
+      <div class="meta-item-lbl">DOCUMENT TYPE & YEAR</div>
+      <div class="meta-item-val">Comprehensive Academic & Technical Project Report • FY 2026</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     PAGE 2: SECTION 1 & 2: OVERVIEW & PROBLEMS
+=========================================== -->
+<div class="page page-inner">
+  <div class="inner-header">
+    <div class="header-left">KSS PROCUREMENT OPERATING SYSTEM</div>
+    <div class="header-right">SECTION 1 & 2: OVERVIEW & PROBLEMS</div>
+  </div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>1. Executive Summary</span>
+  </div>
+  <p class="section-para">
+    The <strong>KSS Procurement OS</strong> is a full-stack enterprise web application designed to eliminate paper-bound requisition bottlenecks, opaque quotation bidding, rogue spending, and lack of accountability in corporate procurement workflows. Operating as a unified single-window digital interface for enterprise supply chain operations, it connects department team leads directly with authorized managers, finance controllers, executive administrators, and registered external vendors.
+  </p>
+
+  <div class="p2-stats-row">
+    <div class="p2-stat-card">
+      <div class="p2-stat-num">8+</div>
+      <div class="p2-stat-lbl">PROCUREMENT MODULES</div>
+    </div>
+    <div class="p2-stat-card">
+      <div class="p2-stat-num">5</div>
+      <div class="p2-stat-lbl">USER PERSONAS</div>
+    </div>
+    <div class="p2-stat-card">
+      <div class="p2-stat-num">100%</div>
+      <div class="p2-stat-lbl">AUDIT TRAIL</div>
+    </div>
+    <div class="p2-stat-card">
+      <div class="p2-stat-num">0 s</div>
+      <div class="p2-stat-lbl">ROUTING DELAY</div>
+    </div>
+  </div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>2. Problem Formulation & Modern Solution Matrix</span>
+  </div>
+
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Traditional Pain Point</th>
+        <th style="width: 38%;">Real-World Impact</th>
+        <th style="width: 37%;">Digital System Solution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-bold">Manual Paper Requisitions</td>
+        <td>Department employees spend days drafting paper purchase slips, chasing physical signatures, and experiencing weeks of idle requisition latency.</td>
+        <td><strong>24/7 Digital Self-Service</strong> with multi-step interactive forms, automated category taxonomy, and instant tracking reference receipts.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Opaque Vendor Bidding & Sourcing</td>
+        <td>Unstandardized quotation exchanges via email lead to supplier favoritism, bid tampering, and inflated unit procurement costs.</td>
+        <td><strong>Encrypted RFQ Sourcing Portal</strong> with sealed multi-vendor bid submissions, automated tax calculations (GST), and transparent evaluation matrices.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Unverified Invoices & Rogue Spending</td>
+        <td>Finance teams process invoices for unreceived, damaged, or mispriced items with no programmatic reconciliation against purchase orders.</td>
+        <td><strong>Strict Three-Way Matching Engine</strong> reconciling Purchase Order (PO), Goods Receipt Note (GRN), and Vendor Invoice before payment authorization.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Disjointed Communication & Audit Silos</td>
+        <td>Approvals lack transparent audit trails, leaving auditors unable to verify who approved cost adjustments, when, or under what business justification.</td>
+        <td><strong>Immutable ApprovalHistory Audit Logs</strong> recording exact microsecond timestamps, user roles, cost-center snapshots, and mandatory remarks.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout-box">
+    💡 <strong>Key Innovation:</strong> The system features an <strong>Enterprise Multi-Portal Architecture</strong>. It operates dynamically with the high-performance Django REST Framework API while maintaining seamless dual workflow branching for <strong>Flow A (Physical Hardware & Capital Assets)</strong> and <strong>Flow B (Software, Cloud Subscriptions & SaaS Licenses)</strong> with specialized justification lifecycles.
+  </div>
+</div>
+
+<!-- ==========================================
+     PAGE 3: SECTION 3 & 4: ARCHITECTURE & SECURITY
+=========================================== -->
+<div class="page page-inner">
+  <div class="inner-header">
+    <div class="header-left">KSS PROCUREMENT OPERATING SYSTEM</div>
+    <div class="header-right">SECTION 3: ARCHITECTURE & SECURITY</div>
+  </div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>3. System Architecture & Technical Stack</span>
+  </div>
+  <p class="section-para">
+    The platform adopts a decoupled Client-Server architecture ensuring sub-second page transitions, responsive touch ergonomics, and enterprise-grade relational consistency.
+  </p>
+
+  <div class="ascii-container">+------------------------------------------------------------------------------------+
+|                                   CLIENT LAYER                                     |
+| +--------------------+ +--------------------+ +--------------------+ +-----------+ |
+| |  Team Lead Portal  | |   Manager Portal   | |   Finance Portal   | |   Vendor  | |
+| +--------------------+ +--------------------+ +--------------------+ +-----------+ |
+| +--------------------------------------------------------------------------------+ |
+| | React 18 (Vite) SPA | TypeScript | Tailwind CSS Tokens | Lucide Icon Suite     | |
+| +--------------------------------------------------------------------------------+ |
++-----------------------------------------|------------------------------------------+
+                                          | REST API (JSON / HTTPS & Bearer JWT)
+                                          v
++------------------------------------------------------------------------------------+
+|                                 BACKEND API LAYER                                  |
+| +--------------------------------------------------------------------------------+ |
+| |                 Python 3.10+ / Django 4.2+ REST Framework                      | |
+| | - Automated Tiered Routing Engine     - Insecure Direct Object (IDOR) Guard    | |
+| | - Role-Based Access Control Interceptor- Immutable Status History Manager     | |
+| | - Three-Way Matching Engine (PO/GRN)  - Dynamic Budget Allocation Controller   | |
+| +--------------------------------------------------------------------------------+ |
++-----------------------------------------|------------------------------------------+
+                                          | ORM Data Bindings
+                                          v
++------------------------------------------------------------------------------------+
+|                                  DATABASE LAYER                                    |
+| +------------------------------------+ +-----------------------------------------+|
+| | Relational DB (PostgreSQL/SQLite)  | | Secure Media & Document Store            ||
+| | Users, Requests, RFQs, Orders, Logs| | Encrypted Invoices, Quotes, Receipts, POD||
+| +------------------------------------+ +-----------------------------------------+|
++------------------------------------------------------------------------------------+</div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>4. 5-Tier Role-Based Access Control (RBAC)</span>
+  </div>
+
+  <table class="report-table">
+    <thead>
+      <tr>
+        <th style="width: 16%;">Role</th>
+        <th style="width: 26%;">Target Persona</th>
+        <th style="width: 58%;">Authorized Actions & Feature Isolation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">Team Lead</td>
+        <td>Department Leads & Requisitioners</td>
+        <td>Submit purchase requests (Flow A Hardware / Flow B SaaS), attach technical specifications, track live 4-stage stepper, execute mock payments, submit payment justification documents (IDOR Protected).</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">Manager</td>
+        <td>Department Heads & Budget Custodians</td>
+        <td>Conduct market research & pre-estimation, review department request queue, approve/reject requests with mandatory remarks, track department budget limits, raise RFQs, verify goods receipts.</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">Finance</td>
+        <td>Financial Officers & Controllers</td>
+        <td>Company-wide budget oversight, cost estimation validation, verify 3-Way Match (PO, Goods Receipt, Vendor Invoice), execute disbursement (NEFT/RTGS/Card), generate audit reports.</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">Vendor</td>
+        <td>External Suppliers & Contractors</td>
+        <td>Inspect invited RFQs, submit sealed itemized quotations (Base Price + GST), review issued Purchase Orders, acknowledge dispatch dates, and upload digital tax invoices.</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">Super Admin</td>
+        <td>Procurement Directors & IT Admins</td>
+        <td>Master system control, department & user provisioning, role escalation, vendor KYC onboarding & category management, budget ceiling allocation, immutable security audit logs.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==========================================
+     PAGE 4: SECTION 4 & 5: SERVICES & WORKFLOWS
+=========================================== -->
+<div class="page page-inner">
+  <div class="inner-header">
+    <div class="header-left">KSS PROCUREMENT OPERATING SYSTEM</div>
+    <div class="header-right">SECTION 4 & 5: SERVICES & WORKFLOWS</div>
+  </div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>5. Comprehensive Civic Services Suite</span>
+  </div>
+  <p class="section-para" style="margin-bottom: 8px;">
+    The platform provides digital workflows across 10 vital procurement and supply chain modules:
+  </p>
+
+  <table class="report-table" style="font-size: 10px;">
+    <thead>
+      <tr>
+        <th style="width: 26%;">Service Name</th>
+        <th style="width: 22%;">Department</th>
+        <th style="width: 12%;">SLA</th>
+        <th style="width: 40%;">Workflow Summary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-bold">1. Purchase Requisition (PR)</td>
+        <td>Request Management</td>
+        <td>24 Hours</td>
+        <td>Department user uploads technical specifications and justification; auto-routed to Manager active queue.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">2. Pre-Estimation & Research</td>
+        <td>Manager Operations</td>
+        <td>48 Hours</td>
+        <td>Manager evaluates market alternatives, renewal vs upgrade costs, and records approved price ceilings.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">3. Request for Quotation (RFQ)</td>
+        <td>Sourcing & Bidding</td>
+        <td>3 Days</td>
+        <td>Competitive bidding initiated; invited vendors receive notifications and submit itemized quotes with tax breakdowns.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">4. Quotation Evaluation</td>
+        <td>Vendor Management</td>
+        <td>24 Hours</td>
+        <td>Multi-vendor bid comparison matrix; system enforces single selected vendor rule with audit rationale.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">5. Purchase Order (PO)</td>
+        <td>Procurement Execution</td>
+        <td>Instant</td>
+        <td>Automated PO generation with unique cryptographic PO reference (PO-XXXX), terms, and vendor dispatch.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">6. Goods Receipt Note (GRN)</td>
+        <td>Warehouse / Logistics</td>
+        <td>24 Hours</td>
+        <td>Physical delivery logged with ordered vs received quantity check, damage reporting, and receipt verification timestamp.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">7. Vendor Invoice Verification</td>
+        <td>Invoice Management</td>
+        <td>48 Hours</td>
+        <td>Vendor uploads digital invoice (INV-XXXX) with tax breakdown; system flags for Three-Way Matching.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">8. Three-Way Matching</td>
+        <td>Finance & Audit</td>
+        <td>Instant</td>
+        <td>Automated reconciliation of Purchase Order, Goods Receipt, and Invoice amounts to eliminate discrepancy and over-billing.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">9. Payment Disbursement</td>
+        <td>Finance & Treasury</td>
+        <td>Instant</td>
+        <td>Payment execution via NEFT/RTGS/UPI or simulated corporate disbursement; transaction reference logged.</td>
+      </tr>
+      <tr>
+        <td class="col-bold">10. Department Budget Lock</td>
+        <td>Budget Management</td>
+        <td>Instant</td>
+        <td>Real-time budget limit enforcement (Fiscal Year 2026) tracking committed vs spent funds per cost center.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title" style="margin-top: 14px;">
+    <div class="section-bar"></div>
+    <span>6. Citizen Request Lifecycle Stepper</span>
+  </div>
+  <p class="section-para" style="margin-bottom: 6px;">
+    Every procurement request traverses a 4-stage transparent state machine:
+  </p>
+
+  <div class="stepper-row">
+    <div class="stepper-card">
+      <div class="stepper-circle">1</div>
+      <div class="stepper-title">Submitted</div>
+      <div class="stepper-desc">Application created with technical specifications & justification</div>
+    </div>
+    <div class="stepper-card">
+      <div class="stepper-circle">2</div>
+      <div class="stepper-title">Dept Assigned</div>
+      <div class="stepper-desc">Auto-routed to Department Manager queue for pre-estimation</div>
+    </div>
+    <div class="stepper-card">
+      <div class="stepper-circle">3</div>
+      <div class="stepper-title">In Progress</div>
+      <div class="stepper-desc">RFQ bidding, vendor selection, PO dispatch & physical inspection active</div>
+    </div>
+    <div class="stepper-card">
+      <div class="stepper-circle">4</div>
+      <div class="stepper-title">Resolved</div>
+      <div class="stepper-desc">Three-Way Match verified, payment disbursed & requester notified</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================
+     PAGE 5: SECTION 6 & 7: DATA & APIS
+=========================================== -->
+<div class="page page-inner">
+  <div class="inner-header">
+    <div class="header-left">KSS PROCUREMENT OPERATING SYSTEM</div>
+    <div class="header-right">SECTION 6 & 7: DATA & APIS</div>
+  </div>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>7. Database Schema & Entity Relationships</span>
+  </div>
+
+  <table class="report-table" style="font-size: 10px; margin-bottom: 12px;">
+    <thead>
+      <tr>
+        <th style="width: 25%;">Table Name</th>
+        <th style="width: 20%;">Primary Key</th>
+        <th style="width: 55%;">Key Attributes & Constraints</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-bold">User</td>
+        <td>id (INT / UUID)</td>
+        <td>username, email (Unique), password (PBKDF2/SHA256), role (Enum), department (FK), phone, cost_center</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Department</td>
+        <td>id (INT)</td>
+        <td>name (Unique), code (Unique), description, created_at, updated_at</td>
+      </tr>
+      <tr>
+        <td class="col-bold">PurchaseRequest</td>
+        <td>id / request_id (VARCHAR)</td>
+        <td>title, category, requested_amount, current_stage, status, flow_type (A/B), created_by (FK), department (FK)</td>
+      </tr>
+      <tr>
+        <td class="col-bold">RFQ</td>
+        <td>id / rfq_id (VARCHAR)</td>
+        <td>title, deadline, status (Open/Closed), invited_vendors (M2M), purchase_request (FK)</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Quotation</td>
+        <td>id / quotation_id (VARCHAR)</td>
+        <td>rfq (FK), vendor (FK), price, gst_rate, tax_amount, total_amount, status (Enum), delivery_days</td>
+      </tr>
+      <tr>
+        <td class="col-bold">PurchaseOrder</td>
+        <td>id / po_id (VARCHAR)</td>
+        <td>purchase_request (FK), quotation (FK), vendor (FK), total_amount, status, expected_delivery</td>
+      </tr>
+      <tr>
+        <td class="col-bold">GoodsReceipt</td>
+        <td>id / receipt_id (VARCHAR)</td>
+        <td>purchase_order (FK), received_by (FK), ordered_quantity, received_quantity, status, verified_at</td>
+      </tr>
+      <tr>
+        <td class="col-bold">Invoice</td>
+        <td>id / invoice_id (VARCHAR)</td>
+        <td>purchase_order (FK), vendor (FK), invoice_number, amount, tax_amount, status, is_manager_verified</td>
+      </tr>
+      <tr>
+        <td class="col-bold">ThreeWayMatch</td>
+        <td>id / match_id (VARCHAR)</td>
+        <td>purchase_order (FK), goods_receipt (FK), invoice (FK), po_amount, invoice_amount, is_matched</td>
+      </tr>
+      <tr>
+        <td class="col-bold">ApprovalHistory</td>
+        <td>id (UUID / INT)</td>
+        <td>request (FK), action, performed_by (FK), user_role, previous_status, new_status, comments, timestamp</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">
+    <div class="section-bar"></div>
+    <span>8. REST API Specifications & Endpoints</span>
+  </div>
+
+  <table class="report-table" style="font-size: 10px;">
+    <thead>
+      <tr>
+        <th style="width: 12%;">Method</th>
+        <th style="width: 32%;">Endpoint</th>
+        <th style="width: 44%;">Description</th>
+        <th style="width: 12%;">Access Guard</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">POST</td>
+        <td><code>/api/auth/login/</code></td>
+        <td>Validates credentials; returns auth JWT token & user profile.</td>
+        <td>Public</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">POST</td>
+        <td><code>/api/auth/register/</code></td>
+        <td>Registers new user with department and role assignment.</td>
+        <td>Public</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">POST</td>
+        <td><code>/api/team-lead/requests/</code></td>
+        <td>Submits new request; triggers auto-routing and manager queue assignment.</td>
+        <td>Team Lead</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">GET</td>
+        <td><code>/api/team-lead/requests/</code></td>
+        <td>Fetches user's own submitted requests (IDOR protected).</td>
+        <td>Team Lead</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">GET</td>
+        <td><code>/api/manager/requests/</code></td>
+        <td>Returns assigned tickets for department manager queue.</td>
+        <td>Manager</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">GET</td>
+        <td><code>/api/finance/requests/</code></td>
+        <td>Returns complete company request queue for finance audit & oversight.</td>
+        <td>Finance</td>
+      </tr>
+      <tr>
+        <td class="col-bold" style="color: #0284c7;">POST</td>
+        <td><code>/api/requests/{id}/approve/</code></td>
+        <td>Transitions request status, appends to ApprovalHistory, notifies stakeholders.</td>
+        <td>Manager / Finance</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ==========================================
+     PAGE 6: SECTION 8 & 9: SECURITY & VIVA
+=========================================== -->
+<div class="page page-inner" style="justify-content: space-between;">
+  <div>
+    <div class="inner-header">
+      <div class="header-left">KSS PROCUREMENT OPERATING SYSTEM</div>
+      <div class="header-right">SECTION 8 & 9: SECURITY & VIVA</div>
+    </div>
+
+    <div class="section-title">
+      <div class="section-bar"></div>
+      <span>9. Security Architecture & IDOR Guard</span>
+    </div>
+
+    <div class="callout-box-blue">
+      <div style="font-weight: 700; color: #0284c7; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+        🛡️ Enterprise Security Implementations:
+      </div>
+      <ul class="sec-list">
+        <li><strong>IDOR Protection:</strong> Requisition and quotation API queries strictly filter by authenticated session token rather than user-supplied query parameters, preventing unauthorized viewing of other departments' or vendors' data.</li>
+        <li><strong>Immutable Audit Trails:</strong> Every status transition generates an append-only record in <code>ApprovalHistory</code>, preventing retrospective data tampering or unauthorized amount modifications.</li>
+        <li><strong>Client-Side Role Guards:</strong> React <code>ProtectedRoute</code> verifies role permissions and JWT tokens before mounting protected portal dashboard views.</li>
+      </ul>
+    </div>
+
+    <div class="section-title">
+      <div class="section-bar"></div>
+      <span>10. Viva Voce & Technical Defense Guide</span>
+    </div>
+
+    <table class="report-table">
+      <thead>
+        <tr>
+          <th style="width: 35%;">Viva Question</th>
+          <th style="width: 65%;">Technical Answer</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="col-bold">What is the core innovation of this project?</td>
+          <td>Automated tiered procurement orchestration integrating 5-role RBAC, closed-loop 4-stage tracking stepper, sealed RFQ bidding, and automated Three-Way Matching with immutable audit trails.</td>
+        </tr>
+        <tr>
+          <td class="col-bold">How is Role-Based Access Control enforced?</td>
+          <td>Dual-layer protection: React <code>ProtectedRoute</code> guards in the frontend and Django REST Framework permission classes at the API layer.</td>
+        </tr>
+        <tr>
+          <td class="col-bold">How does IDOR protection work in the API?</td>
+          <td>The backend queries filter requests strictly using authenticated session email and user identity, preventing unauthorized access across departments and vendors.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sign-footer">
+    <div class="section-title" style="margin-bottom: 6px;">
+      <div class="section-bar"></div>
+      <span>11. Project Sign-Off & Evaluation Sheet</span>
+    </div>
+    <p class="section-para" style="margin-bottom: 12px;">
+      This report certifies that the <strong>KSS Procurement Operating System</strong> has been implemented, validated across all 5 user roles, and verified for production-grade enterprise procurement and governance standards.
+    </p>
+
+    <div class="sign-grid">
+      <div>
+        <div class="sign-title">Candidate / Developer Signature</div>
+        <div class="sign-name">Pratiksha • Procurement Systems Lead</div>
+      </div>
+      <div>
+        <div class="sign-title">Project Guide / Faculty Examiner</div>
+        <div class="sign-name">Department of Computer Science & Engineering</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
