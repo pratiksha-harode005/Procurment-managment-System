@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://backend-brown-three-62.vercel.app/api/:match*"
+      "destination": "https://procurment-managment-system.vercel.app/api/:match*"
     },
     {
       "source": "/(.*)",
