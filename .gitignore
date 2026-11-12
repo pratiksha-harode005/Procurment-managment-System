@@ -17,10 +17,9 @@ env/
 *.env
 
 # Django
-*.sqlite3
-*.sqlite3*
+*.sqlite3.backup*
+*.sqlite3.online-backup*
 *.bak
-db.sqlite3
 *.log
 media/
 staticfiles/
@@ -56,3 +55,6 @@ backend/run_*.py
 backend/test_*.py
 backend/backfill_*.py
 backend/sync_existing_*.py
+
+.vercel
+.env*

@@ -7,6 +7,12 @@ User = get_user_model()
 
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if hasattr(self, 'initial_data') and isinstance(self.initial_data, dict):
+            if 'username' not in self.initial_data and 'email' in self.initial_data:
+                self.initial_data['username'] = self.initial_data['email']
+
     def validate(self, attrs):
         data = super().validate(attrs)
         data['user'] = UserSerializer(self.user).data

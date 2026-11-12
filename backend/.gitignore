@@ -12,8 +12,9 @@ env/
 ENV/
 
 # Django
-*.sqlite3
-db.sqlite3
+*.sqlite3.backup*
+*.sqlite3.online-backup*
+*.bak
 
 # Environment variables (NEVER commit credentials)
 .env
@@ -41,3 +42,6 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
+
+.vercel
+.env*
