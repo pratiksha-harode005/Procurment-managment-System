@@ -5,6 +5,7 @@
       "src": "config/wsgi.py",
       "use": "@vercel/python",
       "config": {
+        "includeFiles": ["dist/**", "db.sqlite3", "apps/**"],
         "maxLambdaSize": "50mb",
         "runtime": "python3.11"
       }

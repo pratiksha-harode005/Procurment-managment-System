@@ -1,8 +1,10 @@
+import mimetypes
+from pathlib import Path
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, FileResponse
 
 
 def api_root(request):
@@ -10,7 +12,7 @@ def api_root(request):
         "status": "online",
         "service": "KSS Procurement OS REST API Backend",
         "version": "1.0.0",
-        "frontend_url": "http://localhost:5173/",
+        "frontend_url": "https://procurment-managment-system.vercel.app/",
         "admin_panel": "/admin/",
         "endpoints": {
             "auth": "/api/auth/login/",
@@ -31,6 +33,29 @@ def api_root(request):
     })
 
 
+DIST_DIR = settings.BASE_DIR / 'dist'
+
+
+def serve_frontend(request, path=''):
+    clean_path = path.lstrip('/')
+    if clean_path:
+        target = DIST_DIR / clean_path
+        if target.is_file():
+            mime, _ = mimetypes.guess_type(str(target))
+            response = FileResponse(open(target, 'rb'), content_type=mime or 'application/octet-stream')
+            if 'assets/' in clean_path:
+                response['Cache-Control'] = 'public, max-age=31536000, immutable'
+            return response
+
+    index_file = DIST_DIR / 'index.html'
+    if index_file.exists():
+        with open(index_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        return HttpResponse(content, content_type='text/html')
+
+    return api_root(request)
+
+
 from rest_framework.routers import DefaultRouter
 from apps.rfq_management.views import QuotationViewSet
 
@@ -38,7 +63,7 @@ quotations_alias_router = DefaultRouter()
 quotations_alias_router.register(r'', QuotationViewSet, basename='rfq-quotations-alias')
 
 urlpatterns = [
-    path('', api_root, name='api-root-index'),
+    path('api/', api_root, name='api-root-index'),
     path('admin/', admin.site.urls),
     path('api/auth/', include('apps.authentication.urls')),
     path('api/users/', include('apps.users.urls')),
@@ -57,6 +82,7 @@ urlpatterns = [
     path('api/budgets/', include('apps.budget_management.urls')),
     path('api/budget/', include('apps.budget_management.urls')),
     path('api/notifications/', include('apps.notification_management.urls')),
+    re_path(r'^(?P<path>.*)$', serve_frontend, name='frontend-spa'),
 ]
 
 if settings.DEBUG:
